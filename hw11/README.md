@@ -1,18 +1,16 @@
-## Getting Started
+Implement Calculator and CalculatorTest
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+– In the package: edu.umb.cs680.hw01
+• Place source code files (.java files) and binary files (.class files) in different directories.
 
-## Folder Structure
-
-The workspace contains two folders by default, where:
-
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+– Follow this directory structure:
+• <proj dir>/src/edu/umb/cs680/hw01/Calculator.java
+• <proj dir>/src/edu/umb/cs680/hw01/CalculatorTest.java • <proj dir>/bin/edu/umb/cs680/hw01/Calculator.class
+• <proj dir>/bin/edu/umb/cs680/hw01/CalculatorTest.class
+– Your IDE has a way to set up these “src” and “bin” directories. Figure it out.
+• Compile your code on your IDE
+• Run test cases with JUnit on your IDE
+• NoneedtouseAntinthisHW.
+HW 1
+1:
+Calculator • 
