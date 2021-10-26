@@ -30,47 +30,26 @@ public class PrimeGeneratorTest {
     }
 
     @Test
-    public void primeFromMinus10To5() {
-        PrimeGenerator pGenerator = new PrimeGenerator(-10L, 5L);
-        try {
-            pGenerator.generatePrimes();
-            pGenerator.getPrimes();
-            fail("invalid range for prime numbers");
-        } catch (IllegalArgumentException ex) {
-            assertEquals("invalid range", ex.getMessage());
-        }
-    }
-    
-    @Test
     public void primeFrom12To2() {
-        PrimeGenerator pGenerator = new PrimeGenerator(12L, 2L);
         try {
+            PrimeGenerator pGenerator = new PrimeGenerator(12L, 2L);
             pGenerator.generatePrimes();
             pGenerator.getPrimes();
-            fail("invalid range for prime numbers");
-        } catch (IllegalArgumentException ex) {
-            assertEquals("invalid range", ex.getMessage());
+            fail("Invalid range test fail");
+        } catch (RuntimeException ex) {
+            assertEquals("Wrong input values: from=12 to=2", ex.getMessage());
         }
     }
-    
+
     @Test
     public void primeFrom2To2() {
-        PrimeGenerator pGenerator = new PrimeGenerator(2L, 2L);
-        pGenerator.generatePrimes();
-        List<Long> actual = pGenerator.getPrimes();
-        List<Long> expected = List.of(2L);
-
-        assertArrayEquals(expected.toArray(), actual.toArray());
+        try {
+            PrimeGenerator pGenerator = new PrimeGenerator(2L, 2L);
+            pGenerator.generatePrimes();
+            pGenerator.getPrimes();
+            fail("Invalid range test fail");
+        } catch (RuntimeException ex) {
+            assertEquals("Wrong input values: from=2 to=2", ex.getMessage());
+        }
     }
-
-    @Test
-    public void primeFrom0To0() {
-        PrimeGenerator pGenerator = new PrimeGenerator(0L, 0L);
-        pGenerator.generatePrimes();
-        List<Long> actual = pGenerator.getPrimes();
-        List<Long> expected = List.of();
-
-        assertArrayEquals(expected.toArray(), actual.toArray());
-    }
-
 }
