@@ -1,11 +1,10 @@
-package edu.umb.cs680.hw01;
+package edu.umb.cs680.hw03;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
-
 import java.util.List;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class PrimeGeneratorTest {
 
