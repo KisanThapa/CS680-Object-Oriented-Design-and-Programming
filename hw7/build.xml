@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="DVDPlayer" basedir="." default="run">
+<project name="FileSystem" basedir="." default="run">
     <property environment="env"/>
     <echo message="JUNIT: ${env.JUNIT}" />
     <echo message="ANT_HOME: ${env.ANT_HOME}" />
@@ -61,7 +61,7 @@
 
 
     <target name="run" depends="test">
-        <java classname="edu.umb.cs680.hw06.Main" classpathref="classpath" fork="true"/>
+        <java classname="edu.umb.cs680.hw07.Main" classpathref="classpath" fork="true"/>
     </target>
 
 
