@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 public class FileSystem {
     private static FileSystem instance;
-    LinkedList<Directory> directory = new LinkedList<>();
+    LinkedList<Directory> rootDirs = new LinkedList<>();
 
     private FileSystem() {
     }
@@ -16,11 +16,11 @@ public class FileSystem {
     }
 
     public LinkedList<Directory> getRootDir() {
-        return this.directory;
+        return this.rootDirs;
     }
 
     public void addRootDir(Directory root) {
-        directory.add(root);
+        rootDirs.add(root);
     }
 
 }
