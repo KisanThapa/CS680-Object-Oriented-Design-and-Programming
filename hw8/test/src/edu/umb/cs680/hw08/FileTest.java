@@ -61,7 +61,56 @@ class FileTest {
     }
 
     @Test
-    public void verifyIfFiles() {
+    public void testFileC() {
+        String[] expected = {
+                "false",
+                "c",
+                "2",
+                localTime.toString(),
+                "code"
+        };
+        assertArrayEquals(expected, fileToStringArray(c));
+    }
+    
+    @Test
+    public void testFileD() {
+        String[] expected = {
+                "false",
+                "d",
+                "2",
+                localTime.toString(),
+                "code"
+        };
+        assertArrayEquals(expected, fileToStringArray(d));
+    }
+
+    @Test
+    public void testCAndDIsInSameDirectory() {
+        assertSame(c.getParent().getName(), d.getParent().getName());
+    }
+    
+    @Test
+    public void testyAndCIsInSameDirectory() {
+        assertSame(y.getParent().getName(), c.getParent().getName());
+    }
+
+    @Test
+    public void testFileCountInCodeDirectory() {
+        assertEquals(2, code.getFiles().size());
+    }
+
+    @Test
+    public void testFileCountInHomeDirectory() {
+        assertEquals(1, home.getFiles().size());
+    }
+    
+    @Test
+    public void testFileCountInApplicationDirectory() {
+        assertEquals(1, applications.getFiles().size());
+    }
+
+    @Test
+    public void testDirectoryOrNot() {
         assertFalse(a.isDirectory());
         assertFalse(b.isDirectory());
         assertFalse(c.isDirectory());

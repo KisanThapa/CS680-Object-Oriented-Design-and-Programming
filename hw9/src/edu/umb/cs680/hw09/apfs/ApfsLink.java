@@ -10,9 +10,9 @@ public class ApfsLink extends ApfsElement {
 
     public ApfsLink(ApfsDirectory parent, String name, int size, LocalDateTime creationTime, FSElement target, String ownerName, LocalDateTime lastModifiedTime) {
         super(parent, name, size, creationTime, ownerName, lastModifiedTime);
-        parent.appendChild(this);
-
         this.target = target;
+        
+        parent.appendChild(this);
     }
 
     @Override

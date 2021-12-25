@@ -24,7 +24,6 @@ public class LinkTest {
     Link x = new Link(home, "x", 1, localTime, applications);
     Link y = new Link(code, "y", 1, localTime, a);
 
-
     private String[] linkToStringArray(Link link) {
 
         String[] infoList = {
@@ -65,7 +64,26 @@ public class LinkTest {
         assertArrayEquals(expected, linkToStringArray(y));
     }
 
+    @Test
+    public void testTargetOfX() {
+        assertSame("applications", x.getTarget().getName());
+    }
+
+    @Test
+    public void testTargetOfY() {
+        assertSame("a", y.getTarget().getName());
+    }
+
+    @Test
+    public void testLinkCountInHomeDirectory() {
+        assertEquals(1, home.getLinks().size());
+    }
     
+    @Test
+    public void testLinkCountInCodeDirectory() {
+        assertEquals(1, code.getLinks().size());
+    }
+
     @Test
     public void testDirectoryOrNot() {
         assertFalse(x.isDirectory());

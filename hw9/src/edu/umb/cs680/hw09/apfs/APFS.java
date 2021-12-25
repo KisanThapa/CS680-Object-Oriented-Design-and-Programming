@@ -21,7 +21,7 @@ public class APFS extends FileSystem {
 
     @Override
     public FSElement createDefaultRoot() {
-        return new ApfsDirectory(null, "root", 0, localDateTime, "owner1", localDateTime);
+        return new ApfsDirectory(null, "root", 1200, localDateTime, "owner1", localDateTime);
     }
 
 }

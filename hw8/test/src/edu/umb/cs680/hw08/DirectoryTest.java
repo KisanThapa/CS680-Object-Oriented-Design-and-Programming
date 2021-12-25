@@ -96,6 +96,17 @@ class DirectoryTest {
     }
 
     @Test
+    public void testDirectoryCountInRootDirectory() {
+        assertEquals(2, root.getSubDirectories().size());
+    }
+    
+    @Test
+    public void testDirectoryCountInHomeDirectory() {
+        assertEquals(1, home.getSubDirectories().size());
+    }
+    
+
+    @Test
     public void directoryFileTest() {
         assertTrue(applications.isDirectory());
         assertFalse(a.isDirectory());

@@ -7,15 +7,19 @@ import java.util.LinkedList;
 
 public class ApfsDirectory extends ApfsElement {
 
-    LinkedList<FSElement> children;
+    private LinkedList<ApfsElement> children;
+    private LinkedList<ApfsDirectory> directories;
+    private LinkedList<ApfsFile> files;
 
     public ApfsDirectory(ApfsDirectory parent, String name, int size, LocalDateTime creationTime, String ownerName, LocalDateTime lastModifiedTime) {
         super(parent, name, size, creationTime, ownerName, lastModifiedTime);
 
         children = new LinkedList<>();
+        directories = new LinkedList<>();
+        files = new LinkedList<>();
 
         if (parent != null) {
-            parent.appendChild(this);
+            parent.addChild(this);
         }
     }
 
@@ -24,43 +28,98 @@ public class ApfsDirectory extends ApfsElement {
         return true;
     }
 
-    public LinkedList<FSElement> getChildren() {
+    public LinkedList<ApfsElement> getChildren() {
         return this.children;
     }
 
-    public void appendChild(FSElement file) {
+    public void appendChild(ApfsElement file) {
         children.add(file);
     }
 
     public int countChildren() {
-        int countChild = 0;
-        for (FSElement f : this.children)
-            countChild += 1;
-        return countChild;
+       return children.size();
+    }
+
+    public void addChild(ApfsElement child) {
+        children.add(child);
     }
 
     public LinkedList<ApfsDirectory> getSubDirectories() {
-        LinkedList<ApfsDirectory> directories = new LinkedList<>();
-        for (FSElement fsElement : children) {
-            if (fsElement instanceof ApfsDirectory) directories.add((ApfsDirectory) fsElement);
+        LinkedList<ApfsDirectory> subDir = new LinkedList<>();
+
+        for (FSElement fsEle : children) {
+            if (fsEle instanceof ApfsDirectory)
+                subDir.add((ApfsDirectory) fsEle);
         }
-        return directories;
+        return subDir;
     }
 
     public LinkedList<ApfsFile> getFiles() {
         LinkedList<ApfsFile> files = new LinkedList<>();
-        for (FSElement fsElement : children) {
-            if (fsElement instanceof ApfsFile) files.add((ApfsFile) fsElement);
+        for (FSElement fsEle : children) {
+            if (fsEle instanceof ApfsFile)
+                files.add((ApfsFile) fsEle);
         }
         return files;
     }
 
+    public LinkedList<ApfsLink> getLinks() {
+        LinkedList<ApfsLink> links = new LinkedList<>();
+        for (FSElement fsEle : children) {
+            if (fsEle instanceof ApfsLink) {
+                links.add((ApfsLink) fsEle);
+            }
+        }
+        return links;
+    }
+
     public int getTotalSize() {
         int totalSize = 0;
-        for (FSElement f : getChildren())
-            if (f instanceof ApfsDirectory) totalSize += ((ApfsDirectory) f).getTotalSize();
-            else totalSize += f.getSize();
+        for (FSElement fsEle : children)
+            if (fsEle instanceof ApfsDirectory)
+                totalSize += ((ApfsDirectory) fsEle).getTotalSize();
+            else totalSize += fsEle.getSize();
         return totalSize;
+    }
+
+    public ApfsDirectory findDirectoryByName(String name) {
+        for (ApfsElement apfsEle : children)
+            if (apfsEle instanceof ApfsDirectory)
+                if (apfsEle.getName().equals(name))
+                    return (ApfsDirectory) apfsEle;
+        return null;
+    }
+
+    public ApfsFile findFileByName(String name) {
+        ApfsFile file = null;
+        for (ApfsFile f : getFiles())
+            if (name.equals(f.getName()))
+                file = f;
+
+        if (file == null)
+            for (ApfsDirectory dir : getSubDirectories()) {
+                file = dir.findFileByName(name);
+                if (file != null)
+                    break;
+            }
+
+        return file;
+    }
+
+    public ApfsLink findLinkByName(String name) {
+        ApfsLink link = null;
+        for (ApfsLink l : getLinks())
+            if (name.equals(l.getName()))
+                link = l;
+
+        if (link == null)
+            for (ApfsDirectory dir : getSubDirectories()) {
+                link = dir.findLinkByName(name);
+                if (link != null)
+                    break;
+            }
+
+        return link;
     }
 
     @Override

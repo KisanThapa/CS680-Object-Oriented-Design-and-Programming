@@ -55,6 +55,16 @@ public class Directory extends FSElement {
         }
         return files;
     }
+    
+    public LinkedList<Link> getLinks() {
+        LinkedList<Link> links = new LinkedList<>();
+        for (FSElement fsEle : children) {
+            if (fsEle instanceof Link) {
+                links.add((Link) fsEle);
+            }
+        }
+        return links;
+    }
 
     public int getTotalSize() {
         int totalSize = 0;
