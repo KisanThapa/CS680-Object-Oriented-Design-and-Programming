@@ -13,37 +13,5 @@ public class Main {
         Car car5 = new Car("Accord", "Honda", 50, 2016, 27000f);
         Car car6 = new Car("Accent", "Hyundai", 53, 2016, 15000f);
 
-        usedCars.add(car1);
-        usedCars.add(car2);
-        usedCars.add(car3);
-        usedCars.add(car4);
-        usedCars.add(car5);
-        usedCars.add(car6);
-
-        car1.setCars(usedCars);
-        car2.setCars(usedCars);
-        car3.setCars(usedCars);
-        car4.setCars(usedCars);
-        car5.setCars(usedCars);
-        car6.setCars(usedCars);
-
-        car1.dominationCount();
-        car2.dominationCount();
-        car3.dominationCount();
-        car4.dominationCount();
-        car5.dominationCount();
-        car6.dominationCount();
-
-        System.out.println(car1.getDominationCount());
-        System.out.println(car2.getDominationCount());
-        System.out.println(car3.getDominationCount());
-        System.out.println(car4.getDominationCount());
-        System.out.println(car5.getDominationCount());
-        System.out.println(car6.getDominationCount());
-
-        usedCars.sort(new PriceComparator());
-        usedCars.sort(new ParetoComparator(usedCars));
-
-        System.out.println(usedCars.toString());
     }
 }
