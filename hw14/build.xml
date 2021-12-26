@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<project name="FileSystem" basedir="." default="run">
+    <property environment="env"/>
+    <echo message="JUNIT: ${env.JUNIT}" />
+    <echo message="ANT_HOME: ${env.ANT_HOME}" />
+
+    <property name="src" location="src" />
+    <property name="bin" location="bin" />
+    <property name="test.src" location="test/src" />
+    <property name="test.bin" location="test/bin" />
+    <property name="test.reports" location="test/reports"/>
+
+
+    <path id="classpath">
+        <pathelement location="bin" />
+        <pathelement location="test/bin" />
+
+        <fileset dir="${env.JUNIT}" includes="*jupiter.api*.jar" />
+        <fileset dir="${env.JUNIT}" includes="*jupiter.engine*.jar" />
+        <fileset dir="${env.JUNIT}" includes="*jupiter.jupiter.params*.jar" />
+        <fileset dir="${env.JUNIT}" includes="*apiguardian*.jar" />
+        <fileset dir="${env.JUNIT}" includes="*opentest4j*.jar" />
+        <fileset dir="${env.JUNIT}" includes="*platform.commons*.jar" />
+        <fileset dir="${env.JUNIT}" includes="*platform.engine*.jar" />
+        <fileset dir="${env.JUNIT}" includes="*platform.launcher*.jar" />
+        <fileset dir="${env.JUNIT}" includes="*platform.runner*.jar" />
+        <fileset dir="${env.JUNIT}" includes="*platform.suite.api*.jar" />
+    </path>
+    <echo message="CLASSPATHS:  ${toString:classpath}" />
+
+    <target name="init">
+        <mkdir dir="${bin}"/>
+        <mkdir dir="${test.bin}"/>
+        <mkdir dir="${test.reports}"/>
+    </target>
+
+
+    <target name="compile" depends="init">
+        <javac srcdir="${src}" destdir="${bin}" includeAntRuntime="no">
+            <classpath refid="classpath"/>
+            <include name="**/*.java"/>
+        </javac>
+        <javac srcdir="${test.src}" destdir="${test.bin}" includeAntRuntime="no">
+            <classpath refid="classpath"/>
+            <include name="**/*Test.java"/>
+        </javac>
+    </target>
+
+
+    <target name="test" depends="compile">
+        <junitlauncher haltOnFailure="true" printSummary="true">
+            <classpath refid="classpath"/>
+            <testclasses outputdir="${test.reports}">
+                <fileset dir="${test.bin}">
+                    <include name="**/*Test.class"/>
+                </fileset>
+                <listener type="legacy-plain" sendSysOut="true" />
+            </testclasses>
+        </junitlauncher>
+    </target>
+
+
+    <target name="run" depends="test">
+        <java classname="edu.umb.cs680.hw14.Main" classpathref="classpath" fork="true"/>
+    </target>
+
+
+    <target name="clean">
+        <delete dir="${test.reports}"/>
+        <delete dir="${bin}"/>
+        <delete dir="${test.bin}"/>
+    </target>
+
+</project>
